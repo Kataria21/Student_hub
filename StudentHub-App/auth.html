@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        StudentHub - Login
+    </title>
+
+
+    <link rel="stylesheet" href="auth.css">
+
+
+</head>
+
+
+<body class="auth-body">
+
+
+<div class="auth-container">
+
+
+    <div class="auth-logo">
+
+        🎓 StudentHub
+
+    </div>
+
+
+    <p class="auth-subtitle">
+
+        Manage your student life easily
+
+    </p>
+
+
+    <!-- LOGIN -->
+
+    <div id="loginBox" class="auth-box">
+
+
+        <h2>
+            Welcome Back
+        </h2>
+
+
+        <input
+                id="loginEmail"
+                type="email"
+                placeholder="Email">
+
+
+        <div class="password-field">
+
+            <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Password">
+
+            <button
+
+                    type="button"
+                    class="password-toggle"
+                    id="toggleLoginPassword">
+
+                👁️
+
+            </button>
+
+        </div>
+
+        <p id="loginMessage" class="auth-message"></p>
+
+        <button id="loginBtn">
+
+            Login
+
+        </button>
+
+
+        <p>
+
+            Don't have an account?
+
+            <span id="showSignup">
+
+                Create Account
+
+            </span>
+
+        </p>
+
+
+    </div>
+
+
+    <!-- SIGNUP -->
+
+
+    <div id="signupBox" class="auth-box hidden">
+
+
+        <h2>
+            Create Account
+        </h2>
+
+
+        <input
+                id="signupName"
+                type="text"
+                placeholder="Full Name">
+
+
+        <input
+                id="signupEmail"
+                type="email"
+                placeholder="Email">
+
+
+        <div class="password-field">
+
+            <input
+                    id="signupPassword"
+                    type="password"
+                    placeholder="Password">
+
+
+            <button
+
+                    type="button"
+                    class="password-toggle"
+                    id="toggleSignupPassword">
+
+                👁️
+
+            </button>
+
+        </div>
+
+
+        <div class="password-field">
+
+            <input
+                    id="signupConfirm"
+                    type="password"
+                    placeholder="Confirm Password">
+
+
+            <button
+                    type="button"
+                    class="password-toggle"
+                    id="toggleSignupConfirm">
+
+                👁️
+
+            </button>
+
+        </div>
+
+        <p id="signupMessage" class="auth-message"></p>
+
+        <button id="signupBtn">
+
+            Sign Up
+
+        </button>
+
+
+        <p>
+
+            Already have account?
+
+            <span id="showLogin">
+
+                Login
+
+            </span>
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="auth.js"></script>
+
+
+</body>
+
+</html>

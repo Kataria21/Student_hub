@@ -1,0 +1,4138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+
+
+    <title>Student Dashboard</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<!-- =========================
+     BUNK CALCULATOR MODAL
+========================= -->
+
+<div
+        id="bunkModal"
+        class="bunk-modal">
+
+    <div class="bunk-modal-content">
+
+        <button
+                id="closeBunkModal"
+                class="close-bunk-modal">
+
+            ✕
+
+        </button>
+
+
+        <div class="bunk-modal-icon">
+            🎯
+        </div>
+
+
+        <h2 id="bunkModalTitle">
+            Bunk Calculator
+        </h2>
+
+
+        <p
+                id="bunkModalSubtitle"
+                class="bunk-modal-subtitle">
+
+            Attendance calculation
+
+        </p>
+
+
+        <div
+                id="bunkModalResult"
+                class="bunk-modal-result">
+
+        </div>
+
+
+        <button
+                id="bunkModalCloseButton"
+                class="bunk-modal-close-button">
+
+            Got it
+
+        </button>
+
+    </div>
+
+</div>
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<button
+        type="button"
+        id="sidebarToggle"
+        class="sidebar-toggle"
+        aria-label="Close sidebar"
+        aria-expanded="true"
+        aria-controls="mainSidebar"
+>
+    ☰
+</button>
+
+<aside class="sidebar" id="mainSidebar">
+
+    <div class="logo">
+        🎓 StudentHub
+    </div>
+
+
+    <nav>
+
+        <a href="#dashboard"
+           class="nav-item active"
+           data-section="dashboard">
+
+            🏠
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a href="#subjects"
+           class="nav-item"
+           data-section="subjects">
+
+            📚
+            <span>Subjects</span>
+
+        </a>
+
+
+        <a href="#attendance"
+           class="nav-item"
+           data-section="attendance">
+
+            📊
+            <span>Attendance</span>
+
+        </a>
+
+
+        <a href="#assignments"
+           class="nav-item"
+           data-section="assignments">
+
+            📝
+            <span>Assignments</span>
+
+        </a>
+
+
+        <a href="#timetable"
+           class="nav-item"
+           data-section="timetable">
+
+            📅
+            <span>Timetable</span>
+
+        </a>
+
+
+        <a href="#study"
+           class="nav-item"
+           data-section="study">
+
+            🧠
+            <span>Study Timer</span>
+
+        </a>
+
+
+        <a href="#exams"
+           class="nav-item"
+           data-section="exams">
+
+            📆
+            <span>Exams</span>
+
+        </a>
+
+
+        <a href="#notes"
+           class="nav-item"
+           data-section="notes">
+
+            📝
+            <span>Notes</span>
+
+        </a>
+
+        <a href="#studyMaterials"
+           class="nav-item"
+           data-section="studyMaterials">
+
+            📚
+            <span>Study Materials</span>
+
+        </a>
+
+        <a href="#todo"
+           class="nav-item"
+           data-section="todo">
+
+            ✅
+            <span>To-Do List</span>
+
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="#settings" class="nav-item" data-section="settings">
+
+            ⚙️
+
+            <span>
+        Settings
+    </span>
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<main class="main">
+
+    <!-- =========================
+     DASHBOARD
+========================= -->
+
+    <section
+            id="dashboard"
+            class="page-section">
+
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1 id="welcomeMessage">
+                    Good Evening, Student 👋
+                </h1>
+
+                <p>
+                    Here's what's happening today.
+                </p>
+
+            </div>
+
+
+            <div class="profile">
+
+
+                <!-- NOTIFICATION CENTER -->
+                <div class="notification-wrapper">
+
+                    <button
+                            type="button"
+                            class="notification"
+                            id="notificationBtn"
+                            aria-label="Open notifications"
+                            aria-expanded="false"
+                            aria-controls="notificationPanel">
+
+                        🔔
+                        <span
+                                id="notificationBadge"
+                                class="notification-badge"
+                                hidden>
+            0
+        </span>
+
+                    </button>
+
+                    <div
+                            class="notification-panel"
+                            id="notificationPanel"
+                            hidden>
+
+                        <div class="notification-panel-header">
+                            <div>
+                                <h2>Notifications</h2>
+                                <p id="notificationSummary">
+                                    You're all caught up.
+                                </p>
+                            </div>
+
+                            <button
+                                    type="button"
+                                    id="markAllNotificationsRead">
+                                Mark all read
+                            </button>
+                        </div>
+
+                        <div
+                                id="notificationList"
+                                class="notification-list"
+                                aria-live="polite">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div
+                        class="avatar"
+                        id="dashboardAvatar">
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             STATISTICS
+        ========================= -->
+
+        <section class="stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    📊
+                </div>
+
+                <div>
+
+                    <h3 id="dashboardAttendancePercentage">
+                        0%
+                    </h3>
+
+                    <p>
+                        Attendance
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    📝
+                </div>
+
+                <div>
+
+                    <h3 id="pendingTasksCount">
+                        0
+                    </h3>
+
+                    <p>
+                        Pending Tasks
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    📚
+                </div>
+
+                <div>
+
+                    <h3 id="todayClassesCount">0</h3>
+
+                    <p>
+                        Today's Classes
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    📆
+                </div>
+
+                <div>
+
+                    <h3 id="upcomingExamsCount">0</h3>
+
+                    <p>
+                        Upcoming Exams
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =========================
+             DASHBOARD GRID
+        ========================= -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- TODAY'S CLASSES -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>📅 Today's Classes</h2>
+
+                        <p>
+                            Your schedule for today
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="todaysClassesList">
+                    class="class-list">
+
+                </div>
+
+            </div>
+
+            <!-- STUDY PROGRESS -->
+
+            <div class="card progress-card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Study Progress
+                    </h2>
+
+                </div>
+
+
+                <div
+                        class="progress-circle"
+                        id="studyProgressCircle">
+
+                    <div>
+
+                        <strong id="studyProgressPercentage">
+                            0%
+                        </strong>
+
+                        <span> Today </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="study-info">
+
+
+                    <div>
+
+         <span>
+            Today's Goal
+        </span>
+
+                        <strong id="dashboardStudyGoal">
+                            0 hrs
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+        <span>
+            Completed
+        </span>
+
+                        <strong id="dashboardStudyCompleted">
+                            0 min
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+        <span>
+            Remaining
+        </span>
+
+                        <strong id="dashboardStudyRemaining">
+                            0 min
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+        <!-- =========================
+         ATTENDANCE SECTION
+        ========================= -->
+
+        <section class="card attendance-section">
+
+            <button
+                    type="button"
+                    class="dashboard-attendance-toggle"
+                    id="dashboardAttendanceToggle"
+                    aria-expanded="true"
+                    aria-controls="dashboardAttendanceContent">
+
+                <div class="dashboard-attendance-title">
+
+                    <div>
+
+                        <h2>
+                            📊 Attendance Tracker
+                        </h2>
+
+                        <p>
+                            Keep track of your attendance
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <span
+                        id="dashboardAttendanceChevron"
+                        class="dashboard-attendance-chevron">
+
+            ˄
+
+        </span>
+
+            </button>
+
+            <div
+                    id="dashboardAttendanceContent"
+                    class="dashboard-attendance-content">
+
+
+                <!-- Add Attendance Form -->
+
+                <div class="attendance-form">
+
+
+                    <div class="form-group">
+
+                        <label for="subjectName">
+                            Subject
+                        </label>
+
+                        <input
+                                type="text"
+                                id="subjectName"
+                                placeholder="e.g. Data Structures">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="plannedClasses">
+                            Planned Classes
+                        </label>
+
+                        <input
+                                type="number"
+                                id="plannedClasses"
+                                placeholder="e.g. 40"
+                                min="1">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="conductedClasses">
+                            Classes Conducted
+                        </label>
+
+                        <input
+                                type="number"
+                                id="conductedClasses"
+                                placeholder="e.g. 35"
+                                min="0">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="attendedClasses">
+                            Classes Attended
+                        </label>
+
+                        <input
+                                type="number"
+                                id="attendedClasses"
+                                placeholder="e.g. 34"
+                                min="0">
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+                        class="calculate-btn"
+                        id="calculateAttendanceBtn">
+
+                    Calculate
+
+                </button>
+
+            </div>
+
+
+            <!-- Result -->
+
+            <div
+                    id="attendanceResult"
+                    class="attendance-result"
+            >
+
+                <p>
+                    Enter your attendance details above.
+                </p>
+
+            </div>
+
+
+            <!-- Subjects -->
+
+            <div
+                    id="attendanceList"
+                    class="attendance-list"
+            >
+
+            </div>
+
+        </section>
+
+        <section class="bottom-grid">
+
+
+            <!-- TASKS -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Upcoming Tasks
+                    </h2>
+
+                    <button
+                            class="view-btn nav-item"
+                            data-section="assignments">
+
+                        View All
+
+                    </button>
+
+                </div>
+
+
+                <div class="task-list">
+
+
+                    <div
+                            id="dashboardUpcomingTasks"
+                            class="task-list">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXAMS -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Upcoming Exams
+                    </h2>
+
+                    <button
+                            class="view-btn nav-item"
+                            data-section="exams">
+
+                        View All
+
+                    </button>
+
+                </div>
+
+
+                <div id="dashboardUpcomingExams"
+                     class="exam-list">
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+    </section>
+
+    <!-- =========================
+     SUBJECTS
+========================= -->
+
+
+    <section
+            id="subjects"
+            class="page-section">
+
+        <div class="page-title">
+
+            <h1>📚 Subjects</h1>
+
+            <p>
+                Manage your college subjects.
+            </p>
+
+        </div>
+
+
+        <!-- Add Subject -->
+
+        <div class="card subject-form-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Add New Subject
+                    </h2>
+
+                    <p>
+                        Enter your subject information.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="subject-form">
+
+
+                <div class="form-group">
+
+                    <label for="subjectTitle">
+                        Subject Name
+                    </label>
+
+                    <input
+                            type="text"
+                            id="subjectTitle"
+                            placeholder="e.g. Data Structures"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="teacherName">
+                        Teacher
+                    </label>
+
+                    <input
+                            type="text"
+                            id="teacherName"
+                            placeholder="e.g. Dr. Sharma"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="roomNumber">
+                        Room
+                    </label>
+
+                    <input
+                            type="text"
+                            id="roomNumber"
+                            placeholder="e.g. 204"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="creditHours">
+                        Credits
+                    </label>
+
+                    <input
+                            type="number"
+                            id="creditHours"
+                            placeholder="e.g. 4"
+                            min="1"
+                            max="10"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                    id="addSubjectBtn"
+                    class="add-subject-btn">
+
+                + Add Subject
+
+            </button>
+
+        </div>
+
+
+        <!-- Subject Cards -->
+
+        <div
+                id="subjectsList"
+                class="subjects-list">
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =========================
+         ATTENDANCE
+    ========================= -->
+
+
+    <section
+            id="attendance"
+            class="page-section">
+
+        <div class="page-title">
+
+            <h1>📊 Attendance</h1>
+
+            <p>
+                Track your attendance for every subject.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             ADD ATTENDANCE
+        ========================= -->
+
+        <div class="card attendance-form-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Update Attendance
+                    </h2>
+
+                    <p>
+                        Enter your current attendance.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="attendance-form">
+
+                <!-- Subject -->
+
+                <div class="attendance-form-group">
+
+                    <label for="attendanceSubject">
+                        Subject
+                    </label>
+
+                    <select id="attendanceSubject">
+
+                        <option value="">
+                            Select Subject
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Planned Classes -->
+
+                <div class="attendance-form-group">
+
+                    <label for="attendancePlanned">
+                        Planned Classes
+                    </label>
+
+                    <input
+                            type="number"
+                            id="attendancePlanned"
+                            placeholder="e.g. 40"
+                            min="1">
+
+                </div>
+
+
+                <!-- Classes Conducted -->
+
+                <div class="attendance-form-group">
+
+                    <label for="attendanceConducted">
+                        Classes Conducted
+                    </label>
+
+                    <input
+                            type="number"
+                            id="attendanceConducted"
+                            placeholder="e.g. 35"
+                            min="0">
+
+                </div>
+
+
+                <!-- Classes Attended -->
+
+                <div class="attendance-form-group">
+
+                    <label for="attendanceAttended">
+                        Classes Attended
+                    </label>
+
+                    <input
+                            type="number"
+                            id="attendanceAttended"
+                            placeholder="e.g. 22"
+                            min="0">
+
+                </div>
+
+            </div>
+
+
+            <button
+                    id="saveAttendanceBtn"
+                    class="save-attendance-btn">
+
+                📊 Save Attendance
+
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             OVERALL ATTENDANCE
+        ========================= -->
+
+        <div
+                id="overallAttendance"
+                class="overall-attendance">
+
+        </div>
+
+
+        <!-- =========================
+      SUBJECTS
+ ========================= -->
+
+        <div class="attendance-subjects-card">
+
+            <button
+                    type="button"
+                    class="attendance-section-header"
+                    id="attendanceSubjectsToggle"
+                    aria-expanded="true"
+                    aria-controls="attendanceSubjectsContent">
+
+                <div class="attendance-section-title">
+
+                    <div class="attendance-section-icon">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Subjects
+                        </h2>
+
+                        <p>
+                            View attendance for each subject.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="attendance-section-right">
+
+            <span
+                    id="attendanceSubjectsSummary"
+                    class="attendance-section-summary">
+
+                0 subjects
+
+            </span>
+
+                    <span
+                            id="attendanceSubjectsChevron"
+                            class="attendance-section-chevron">
+
+                ˄
+
+            </span>
+
+                </div>
+
+            </button>
+
+
+            <div
+                    id="attendanceSubjectsContent"
+                    class="attendance-subjects-content">
+
+                <div
+                        id="attendanceCards"
+                        class="attendance-cards">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+     ATTENDANCE CALENDAR
+========================= -->
+
+        <div class="attendance-calendar-card">
+
+            <button
+                    type="button"
+                    class="attendance-section-header"
+                    id="attendanceCalendarToggle"
+                    aria-expanded="false"
+                    aria-controls="attendanceCalendarContent">
+
+                <div class="attendance-section-title">
+
+                    <div class="attendance-section-icon">
+                        📅
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Attendance Calendar
+                        </h2>
+
+                        <p>
+                            View your attendance by date.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="attendance-section-right">
+
+            <span
+                    class="attendance-section-summary">
+
+                This Month
+
+            </span>
+
+                    <span
+                            id="attendanceCalendarChevron"
+                            class="attendance-section-chevron">
+
+                ˅
+
+            </span>
+
+                </div>
+
+            </button>
+
+
+            <div
+                    id="attendanceCalendarContent"
+                    class="attendance-calendar-content"
+                    hidden>
+
+                <div class="attendance-calendar-filter">
+
+                    <label for="calendarSubjectFilter">
+                        Subject
+                    </label>
+
+
+                    <select id="calendarSubjectFilter">
+
+                        <option value="">
+                            Select Subject
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                        id="attendanceCalendar"
+                        class="attendance-calendar">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+     ASSIGNMENTS
+========================= -->
+
+    <section
+            id="assignments"
+            class="page-section">
+
+        <div class="page-title">
+
+            <h1>📝 Assignments</h1>
+
+            <p>
+                Manage your assignments and deadlines.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             ADD ASSIGNMENT
+        ========================= -->
+
+        <div class="card assignment-form-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Add New Assignment
+                    </h2>
+
+                    <p>
+                        Keep track of your academic work.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="assignment-form">
+
+
+                <!-- Title -->
+
+                <div class="form-group">
+
+                    <label for="assignmentTitle">
+                        Assignment
+                    </label>
+
+                    <input
+                            type="text"
+                            id="assignmentTitle"
+                            placeholder="e.g. DBMS Project"
+                    >
+
+                </div>
+
+
+                <!-- Subject -->
+
+                <div class="form-group">
+
+                    <label for="assignmentSubject">
+                        Subject
+                    </label>
+
+                    <select id="assignmentSubject">
+
+                        <option value="">
+                            Select Subject
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Due Date -->
+
+                <div class="form-group">
+
+                    <label for="assignmentDate">
+                        Due Date
+                    </label>
+
+                    <input
+                            type="date"
+                            id="assignmentDate"
+                    >
+
+                </div>
+
+
+                <!-- Priority -->
+
+                <div class="form-group">
+
+                    <label for="assignmentPriority">
+                        Priority
+                    </label>
+
+                    <select id="assignmentPriority">
+
+                        <option value="high">
+                            🔴 High
+                        </option>
+
+                        <option value="medium" selected>
+                            🟡 Medium
+                        </option>
+
+                        <option value="low">
+                            🟢 Low
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                    id="addAssignmentBtn"
+                    class="add-subject-btn">
+
+                + Add Assignment
+
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             FILTERS
+        ========================= -->
+
+        <div class="assignment-filters">
+
+            <button
+                    class="assignment-filter active"
+                    data-filter="all">
+
+                All
+
+            </button>
+
+
+            <button
+                    class="assignment-filter"
+                    data-filter="pending">
+
+                Pending
+
+            </button>
+
+
+            <button
+                    class="assignment-filter"
+                    data-filter="completed">
+
+                Completed
+
+            </button>
+
+
+            <button
+                    class="assignment-filter"
+                    data-filter="overdue">
+
+                Overdue
+
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             ASSIGNMENT LIST
+        ========================= -->
+
+        <div
+                id="assignmentsList"
+                class="assignments-list">
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         TIMETABLE
+    ========================= -->
+
+    <section
+            id="timetable"
+            class="page-section">
+
+        <div class="page-title">
+
+            <h1>📅 Timetable</h1>
+
+            <p>
+                Organize your weekly class schedule.
+            </p>
+
+        </div>
+
+
+        <!-- Add Class -->
+
+        <div class="card timetable-form-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Add Class
+                    </h2>
+
+                    <p>
+                        Create your weekly class schedule.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timetable-form">
+
+
+                <!-- Subject -->
+
+                <div class="form-group">
+
+                    <label for="timetableSubject">
+
+                        Subject
+
+                    </label>
+
+                    <select
+                            id="timetableSubject">
+
+                        <option value="">
+
+                            Select Subject
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Day -->
+
+                <div class="form-group">
+
+                    <label for="timetableDay">
+
+                        Day
+
+                    </label>
+
+                    <select
+                            id="timetableDay">
+
+                        <option value="Monday">
+                            Monday
+                        </option>
+
+                        <option value="Tuesday">
+                            Tuesday
+                        </option>
+
+                        <option value="Wednesday">
+                            Wednesday
+                        </option>
+
+                        <option value="Thursday">
+                            Thursday
+                        </option>
+
+                        <option value="Friday">
+                            Friday
+                        </option>
+
+                        <option value="Saturday">
+                            Saturday
+                        </option>
+
+                        <option value="Sunday">
+                            Sunday
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Start Time -->
+
+                <div class="form-group">
+
+                    <label for="timetableStart">
+
+                        Start Time
+
+                    </label>
+
+                    <input
+                            type="time"
+                            id="timetableStart">
+
+                </div>
+
+
+                <!-- End Time -->
+
+                <div class="form-group">
+
+                    <label for="timetableEnd">
+
+                        End Time
+
+                    </label>
+
+                    <input
+                            type="time"
+                            id="timetableEnd">
+
+                </div>
+
+
+                <!-- Room -->
+
+                <div class="form-group">
+
+                    <label for="timetableRoom">
+
+                        Room
+
+                    </label>
+
+                    <input
+                            type="text"
+                            id="timetableRoom"
+                            placeholder="e.g. 204">
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                    id="addTimetableBtn"
+                    class="add-subject-btn">
+
+                + Add Class
+
+            </button>
+
+        </div>
+
+
+        <!-- Weekly Timetable -->
+
+        <div
+                id="timetableGrid"
+                class="timetable-grid">
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+     STUDY TIMER
+    ========================= -->
+
+    <section
+            id="study"
+            class="page-section">
+
+        <div class="page-title">
+
+            <h1>🧠 Study Timer</h1>
+
+            <p>
+                Focus and improve your study sessions.
+            </p>
+
+        </div>
+
+        <!-- =========================
+     STUDY OVERVIEW
+========================= -->
+
+        <div class="study-overview-card">
+
+
+            <div class="overview-item">
+
+        <span>
+            Today
+        </span>
+
+                <strong id="overviewToday">
+                    0 min
+                </strong>
+
+            </div>
+
+
+            <div class="overview-item">
+
+        <span>
+            Sessions
+        </span>
+
+                <strong id="overviewSessions">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="overview-item">
+
+        <span>
+            Streak
+        </span>
+
+                <strong id="overviewStreak">
+                    🔥 0 days
+                </strong>
+
+            </div>
+
+
+        </div>
+
+        <!-- =========================
+             DAILY STUDY GOAL
+        ========================= -->
+
+
+        <div class="daily-goal-card">
+
+
+            <!-- Goal Header -->
+
+            <button
+                    type="button"
+                    class="study-section-header"
+                    id="dailyGoalToggle"
+                    aria-expanded="true"
+                    aria-controls="dailyGoalContent">
+
+
+                <div class="study-section-title">
+
+                    <div class="study-section-icon">
+                        🎯
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Daily Study Goal
+                        </h2>
+
+                        <p>
+                            Set and manage your daily study target.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="study-section-right">
+
+            <span
+                    id="dailyGoalSummary"
+                    class="study-section-summary">
+
+                0 min
+
+            </span>
+
+
+                    <span
+                            class="study-section-chevron"
+                            id="dailyGoalChevron">
+
+                ⌃
+
+            </span>
+
+                </div>
+
+            </button>
+
+
+            <!-- Goal Content -->
+
+            <div
+                    id="dailyGoalContent"
+                    class="study-section-content">
+
+
+                <!-- SET GOAL -->
+
+                <div id="setGoalSection">
+
+
+                    <div class="goal-editor-header">
+
+                        <div>
+
+                <span class="goal-editor-label">
+                    Today target
+                </span>
+
+                            <p>
+                                Choose how much time you want to study.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="goal-input-area">
+
+
+                        <div class="goal-input-group">
+
+                            <input
+                                    type="number"
+                                    id="dailyGoalHours"
+                                    placeholder="0"
+                                    min="0">
+
+                            <span>
+                    hr
+                </span>
+
+                        </div>
+
+
+                        <div class="goal-input-group">
+
+                            <input
+                                    type="number"
+                                    id="dailyGoalMinutes"
+                                    placeholder="0"
+                                    min="0"
+                                    max="59">
+
+                            <span>
+                    min
+                </span>
+
+                        </div>
+
+
+                        <button
+                                type="button"
+                                id="saveDailyGoalBtn">
+
+                            Save Goal
+
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- SAVED GOAL -->
+
+                <div id="showGoalSection"
+                     style="display:none;">
+
+
+                    <h2>
+                        Today's Study Goal
+                    </h2>
+
+
+                    <!-- Goal Progress -->
+
+                    <div class="daily-goal-progress">
+
+
+                        <div class="goal-progress-ring">
+
+                            <div class="goal-progress-inner">
+
+                                <strong
+                                        id="goalProgressPercentage">
+
+                                    0%
+
+                                </strong>
+
+
+                                <span id="goalProgressLabel">
+                                      Complete
+                               </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="goal-progress-info">
+
+
+                            <strong
+                                    id="goalProgressTime">
+
+                                0 / 0 min
+
+                            </strong>
+
+
+                            <span>
+                Today's progress
+            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <h3 id="currentGoalText">
+                    </h3>
+
+
+                    <button
+                            id="changeGoalBtn"
+                            class="timer-btn secondary">
+
+                        ✏ Change Goal
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="study-timer-card focus-mode"
+             id="studyTimerCard">
+
+
+            <!-- Timer Header -->
+
+            <button
+                    type="button"
+                    class="study-section-header"
+                    id="studyTimerToggle"
+                    aria-expanded="true"
+                    aria-controls="studyTimerContent">
+
+
+                <div class="study-section-title">
+
+                    <div class="study-section-icon">
+                        🧠
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Study Timer
+                        </h2>
+
+                        <p>
+                            Focus sessions and productivity tracking.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="study-section-right">
+
+                    <span
+
+                            id="studyTimerSummary"
+                            class="study-section-summary">
+
+                     🎯 Focus
+
+                    </span>
+
+                    <span
+                            class="study-section-chevron"
+                            id="studyTimerChevron">
+
+                ⌃   </span>
+
+                </div>
+
+
+            </button>
+
+
+            <!-- Timer Content -->
+
+            <div
+                    id="studyTimerContent"
+                    class="study-section-content">
+
+
+                <!-- Timer Mode -->
+
+                <div class="timer-mode">
+
+                    <button
+                            id="focusModeBtn"
+                            class="timer-mode-btn active">
+
+                        🎯 Focus
+
+                    </button>
+
+
+                    <button
+                            id="breakModeBtn"
+                            class="timer-mode-btn">
+
+                        ☕ Break
+
+                    </button>
+
+                </div>
+
+
+                <!-- Timer -->
+
+                <div class="timer-circle">
+
+                    <div class="timer-progress">
+
+                        <div class="timer-display">
+
+            <span id="timerMinutes">
+                25
+            </span>
+
+                            <span class="timer-colon">
+                :
+            </span>
+
+                            <span id="timerSeconds">
+                00
+            </span>
+
+                        </div>
+
+
+                        <p id="timerModeText">
+                            Focus
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Current Mode -->
+
+                <div
+                        id="timerStatus"
+                        class="timer-status">
+
+                    Ready to focus
+
+                </div>
+
+
+                <!-- Controls -->
+
+                <div class="timer-controls">
+
+                    <button
+                            id="startTimerBtn"
+                            class="timer-btn primary">
+
+                        ▶ Start
+
+                    </button>
+
+
+                    <button
+                            id="pauseTimerBtn"
+                            class="timer-btn secondary">
+
+                        ⏸ Pause
+
+                    </button>
+
+
+                    <button
+                            id="resetTimerBtn"
+                            class="timer-btn secondary">
+
+                        🔄 Reset
+
+                    </button>
+
+                </div>
+
+
+                <!-- Session Counter -->
+
+                <div class="timer-session">
+
+            <span>
+                Sessions completed
+            </span>
+
+                    <strong id="sessionCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+              STUDY HISTORY
+        ========================= -->
+
+        <div class="study-history-card">
+
+            <!-- History Header -->
+
+            <button
+                    type="button"
+                    class="study-section-header"
+                    id="studyHistoryToggle"
+                    aria-expanded="false"
+                    aria-controls="studyHistoryContent">
+
+                <div class="study-section-title">
+
+                    <div class="study-section-icon">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Study History
+                        </h2>
+
+                        <p>
+                            Review your recent study activity.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="study-section-right">
+
+            <span
+                    id="studyHistorySummary"
+                    class="study-section-summary">
+
+                0 sessions
+
+            </span>
+
+                    <span
+                            class="study-section-chevron"
+                            id="studyHistoryChevron">
+
+               ⌄
+
+            </span>
+
+                </div>
+
+            </button>
+
+
+            <!-- History Content -->
+
+            <div
+                    id="studyHistoryContent"
+                    class="study-section-content"
+                    hidden>
+
+
+                <div
+                        id="studyHistoryList"
+                        class="study-history-list">
+
+                    <div class="study-history-empty">
+
+                        No study history yet.
+
+                    </div>
+
+                </div>
+
+
+                <button
+                        type="button"
+                        id="clearStudyHistoryBtn"
+                        class="clear-history-btn">
+
+                    🗑️ Clear History
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+   STUDY STATISTICS
+========================= -->
+
+        <div class="study-statistics-card">
+
+
+            <!-- Statistics Header -->
+
+            <button
+                    type="button"
+                    class="study-section-header"
+                    id="studyStatisticsToggle"
+                    aria-expanded="true"
+                    aria-controls="studyStatisticsContent">
+
+
+                <div class="study-section-title">
+
+
+                    <div class="study-section-icon">
+
+                        📊
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Study Statistics
+                        </h2>
+
+
+                        <p>
+                            Track your learning progress and achievements.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="study-section-right">
+
+
+            <span
+                    id="studyStatisticsSummary"
+                    class="study-section-summary">
+
+                Today
+
+            </span>
+
+
+                    <span
+                            class="study-section-chevron"
+                            id="studyStatisticsChevron">
+
+                ⌃
+
+            </span>
+
+
+                </div>
+
+
+            </button>
+
+
+            <!-- Statistics Content -->
+
+
+            <div
+                    id="studyStatisticsContent"
+                    class="study-section-content">
+
+
+                <div class="statistics-grid">
+
+
+                    <div class="statistics-box">
+
+
+                <span>
+                    Today
+                </span>
+
+
+                        <strong id="todayStudyStat">
+
+                            0 min
+
+                        </strong>
+
+
+                    </div>
+
+
+                    <div class="statistics-box">
+
+
+                <span>
+                    Sessions
+                </span>
+
+
+                        <strong id="totalSessionsStat">
+
+                            0
+
+                        </strong>
+
+
+                    </div>
+
+
+                    <div class="statistics-box">
+
+
+                <span>
+                    This Week
+                </span>
+
+
+                        <strong id="weeklyStudyStat">
+
+                            0 min
+
+                        </strong>
+
+
+                    </div>
+
+
+                    <div class="statistics-box">
+
+
+                <span>
+                    Study Streak
+                </span>
+
+
+                        <strong id="studyStreakStat">
+
+                            🔥 0 days
+
+                        </strong>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <!-- =========================
+     WEEKLY STUDY CHART
+========================= -->
+
+        <div class="weekly-study-card">
+
+
+            <!-- Chart Header -->
+
+            <button
+                    type="button"
+                    class="study-section-header"
+                    id="weeklyChartToggle"
+                    aria-expanded="true"
+                    aria-controls="weeklyChartContent">
+
+
+                <div class="study-section-title">
+
+
+                    <div class="study-section-icon">
+
+                        📈
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Weekly Study Progress
+                        </h2>
+
+
+                        <p>
+                            View your study time throughout the week.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="study-section-right">
+
+
+            <span
+                    id="weeklyChartSummary"
+                    class="study-section-summary">
+
+                This Week
+
+            </span>
+
+
+                    <span
+                            class="study-section-chevron"
+                            id="weeklyChartChevron">
+
+                ⌃
+
+            </span>
+
+
+                </div>
+
+
+            </button>
+
+
+            <!-- Chart Content -->
+
+            <div
+                    id="weeklyChartContent"
+                    class="study-section-content">
+
+
+                <div class="weekly-chart">
+
+
+                    <div class="chart-day">
+
+                <span>
+                    Mon
+                </span>
+
+                        <div
+                                class="chart-bar"
+                                id="chartBarMon">
+                        </div>
+
+                        <strong id="chartValueMon">
+                            0 min
+                        </strong>
+
+                    </div>
+
+
+                    <div class="chart-day">
+
+                <span>
+                    Tue
+                </span>
+
+                        <div
+                                class="chart-bar"
+                                id="chartBarTue">
+                        </div>
+
+                        <strong id="chartValueTue">
+                            0 min
+                        </strong>
+
+                    </div>
+
+
+                    <div class="chart-day">
+
+                <span>
+                    Wed
+                </span>
+
+                        <div
+                                class="chart-bar"
+                                id="chartBarWed">
+                        </div>
+
+                        <strong id="chartValueWed">
+                            0 min
+                        </strong>
+                    </div>
+
+
+                    <div class="chart-day">
+
+                <span>
+                    Thu
+                </span>
+
+                        <div
+                                class="chart-bar"
+                                id="chartBarThu">
+                        </div>
+
+                        <strong id="chartValueThu">
+                            0 min
+                        </strong>
+                    </div>
+
+
+                    <div class="chart-day">
+
+                <span>
+                    Fri
+                </span>
+
+                        <div
+                                class="chart-bar"
+                                id="chartBarFri">
+                        </div>
+
+                        <strong id="chartValueFri">
+                            0 min
+                        </strong>
+
+                    </div>
+
+
+                    <div class="chart-day">
+
+                <span>
+                    Sat
+                </span>
+
+                        <div
+                                class="chart-bar"
+                                id="chartBarSat">
+                        </div>
+
+                        <strong id="chartValueSat">
+                            0 min
+                        </strong>
+
+                    </div>
+
+
+                    <div class="chart-day">
+
+                <span>
+                    Sun
+                </span>
+
+                        <div
+                                class="chart-bar"
+                                id="chartBarSun">
+                        </div>
+
+                        <strong id="chartValueSun">
+                            0 min
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <!-- =========================
+     STUDY ACHIEVEMENTS
+========================= -->
+
+        <div class="study-achievements-card">
+
+
+            <!-- Achievements Header -->
+
+            <button
+                    type="button"
+                    class="study-section-header"
+                    id="achievementsToggle"
+                    aria-expanded="true"
+                    aria-controls="achievementsContent">
+
+
+                <div class="study-section-title">
+
+
+                    <div class="study-section-icon">
+
+                        🏆
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Study Achievements
+                        </h2>
+
+
+                        <p>
+                            Milestones you've reached through consistent study.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="study-section-right">
+
+
+            <span
+                    id="achievementsSummary"
+                    class="study-section-summary">
+
+                0 unlocked
+
+            </span>
+
+
+                    <span
+                            class="study-section-chevron"
+                            id="achievementsChevron">
+
+                ⌃
+
+            </span>
+
+
+                </div>
+
+
+            </button>
+
+
+            <!-- Achievements Content -->
+
+            <div
+                    id="achievementsContent"
+                    class="study-section-content">
+
+
+                <div class="achievements-grid">
+
+
+                    <div class="achievement-card locked">
+
+                        <div class="achievement-icon">
+                            🎯
+                        </div>
+
+                        <strong>
+                            First Session
+                        </strong>
+
+                        <span>
+                    Complete your first study session.
+                </span>
+
+                    </div>
+
+
+                    <div class="achievement-card locked">
+
+                        <div class="achievement-icon">
+                            🔥
+                        </div>
+
+                        <strong>
+                            3 Day Streak
+                        </strong>
+
+                        <span>
+                    Study for 3 consecutive days.
+                </span>
+
+                    </div>
+
+
+                    <div class="achievement-card locked">
+
+                        <div class="achievement-icon">
+                            ⏱️
+                        </div>
+
+                        <strong>
+                            10 Hours
+                        </strong>
+
+                        <span>
+                    Study for a total of 10 hours.
+                </span>
+
+                    </div>
+
+
+                    <div class="achievement-card locked">
+
+                        <div class="achievement-icon">
+                            🏅
+                        </div>
+
+                        <strong>
+                            10 Sessions
+                        </strong>
+
+                        <span>
+                    Complete 10 study sessions.
+                </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <!-- =========================
+     STUDY INSIGHTS
+========================= -->
+
+        <div class="study-insights-card">
+
+
+            <button
+                    type="button"
+                    class="study-section-header"
+                    id="insightsToggle"
+                    aria-expanded="true"
+                    aria-controls="insightsContent">
+
+
+                <div class="study-section-title">
+
+
+                    <div class="study-section-icon">
+
+                        💡
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Study Insights
+                        </h2>
+
+
+                        <p>
+                            Understand your learning patterns.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="study-section-right">
+
+
+            <span
+                    id="insightsSummary"
+                    class="study-section-summary">
+
+                Overview
+
+            </span>
+
+
+                    <span
+                            class="study-section-chevron"
+                            id="insightsChevron">
+
+                ⌃
+
+            </span>
+
+
+                </div>
+
+
+            </button>
+
+
+            <div
+                    id="insightsContent"
+                    class="study-section-content">
+
+
+                <div class="insights-grid">
+
+
+                    <div class="insight-box">
+
+                <span>
+                    Total Study Time
+                </span>
+
+
+                        <strong id="totalStudyTimeInsight">
+
+                            0 min
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="insight-box">
+
+                <span>
+                    Average Session
+                </span>
+
+
+                        <strong id="averageSessionInsight">
+
+                            0 min
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="insight-box">
+
+                <span>
+                    Best Study Day
+                </span>
+
+
+                        <strong id="bestStudyDayInsight">
+
+                            -
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="insight-box">
+
+                <span>
+                    Current Streak
+                </span>
+
+
+                        <strong id="currentStreakInsight">
+
+                            🔥 0 days
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <!-- =========================
+     STUDY CALENDAR
+========================= -->
+
+        <div class="study-calendar-card">
+
+
+            <button
+                    type="button"
+                    class="study-section-header"
+                    id="calendarToggle"
+                    aria-expanded="true">
+
+
+                <div class="study-section-title">
+
+
+                    <div class="study-section-icon">
+
+                        📅
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Study Calendar
+                        </h2>
+
+
+                        <p>
+                            Track your daily study consistency.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="study-section-right">
+
+
+            <span
+                    class="study-section-summary">
+
+                This Month
+
+            </span>
+
+
+                    <span
+                            id="calendarChevron"
+                            class="study-section-chevron">
+
+                ⌃
+
+            </span>
+
+
+                </div>
+
+
+            </button>
+
+
+            <div
+                    id="calendarContent"
+                    class="study-section-content">
+
+                <div class="calendar-top">
+
+
+                    <button
+                            id="previousMonthBtn"
+                            class="calendar-nav-btn">
+
+                        ◀
+
+                    </button>
+
+
+                    <h3 id="calendarMonthTitle">
+
+                        August 2026
+
+                    </h3>
+
+
+                    <button
+                            id="nextMonthBtn"
+                            class="calendar-nav-btn">
+
+                        ▶
+
+                    </button>
+
+
+                </div>
+
+                <div class="calendar-legend">
+
+
+    <span>
+
+        <i class="legend studied-dot"></i>
+
+        Studied
+
+    </span>
+
+
+                    <span>
+
+        <i class="legend empty-dot"></i>
+
+        No Study
+
+    </span>
+
+
+                </div>
+
+                <div
+                        id="studyCalendar"
+                        class="study-calendar">
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =========================
+         EXAMS
+    ========================= -->
+
+    <section
+            id="exams"
+            class="page-section">
+
+
+        <div class="page-title">
+
+            <h1>🎓 Exams</h1>
+
+            <p>
+                Manage your exams and track upcoming dates.
+            </p>
+
+        </div>
+
+
+        <!-- ADD EXAM -->
+
+        <div class="card exam-form-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Add Exam
+                    </h2>
+
+                    <p>
+                        Add an upcoming examination.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="exam-form-grid">
+
+
+                <!-- Exam Name -->
+
+                <div class="form-group">
+
+                    <label for="examName">
+                        Exam Name
+                    </label>
+
+                    <input
+                            type="text"
+                            id="examName"
+                            placeholder="e.g. Mid Semester Exam">
+
+                </div>
+
+
+                <!-- Subject -->
+
+                <div class="form-group">
+
+                    <label for="examSubject">
+                        Subject
+                    </label>
+
+                    <select
+                            id="examSubject">
+
+                        <option value="">
+                            Select Subject
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Date -->
+
+                <div class="form-group">
+
+                    <label for="examDate">
+                        Exam Date
+                    </label>
+
+                    <input
+                            type="date"
+                            id="examDate">
+
+                </div>
+
+
+                <!-- Time -->
+
+                <div class="form-group">
+
+                    <label for="examTime">
+                        Exam Time
+                    </label>
+
+                    <input
+                            type="time"
+                            id="examTime">
+
+                </div>
+
+
+                <!-- Room -->
+
+                <div class="form-group">
+
+                    <label for="examRoom">
+                        Room
+                    </label>
+
+                    <input
+                            type="text"
+                            id="examRoom"
+                            placeholder="e.g. Room 204">
+
+                </div>
+
+
+                <!-- Duration -->
+
+                <div class="form-group">
+
+                    <label for="examDuration">
+                        Duration
+                    </label>
+
+                    <input
+                            type="text"
+                            id="examDuration"
+                            placeholder="e.g. 3 hours">
+
+                </div>
+
+            </div>
+
+
+            <button
+                    id="addExamBtn"
+                    class="primary-btn">
+
+                ➕ Add Exam
+
+            </button>
+
+        </div>
+
+
+        <!-- EXAM LIST -->
+
+        <div class="card exams-list-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Your Exams
+                    </h2>
+
+                    <p>
+                        Upcoming and completed examinations.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                    id="examsList"
+                    class="exams-list">
+
+                <div class="no-exams">
+
+                    <div class="no-exams-icon">
+                        🎓
+                    </div>
+
+                    <h3>
+                        No exams added
+                    </h3>
+
+                    <p>
+                        Add your first exam above.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         NOTES
+    ========================= -->
+
+    <section
+            id="notes"
+            class="page-section">
+
+        <div class="page-title">
+
+            <h1>📝 Notes</h1>
+
+            <p>
+                Keep all your study notes organized.
+            </p>
+
+        </div>
+
+        <div class="notes-container">
+
+            <!-- ADD NOTE -->
+
+            <div class="notes-form-card">
+
+                <div class="notes-form-header">
+
+                    <div>
+
+                        <h2>
+                            📝 Create a Note
+                        </h2>
+
+                        <p>
+                            Save your important study notes.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="notes-form">
+
+                    <input
+                            type="text"
+                            id="noteTitle"
+                            placeholder="Note title">
+
+
+                    <select id="noteSubject">
+
+                        <option value="">
+                            Select subject
+                        </option>
+
+                    </select>
+
+
+                    <textarea
+                            id="noteContent"
+                            rows="6"
+                            placeholder="Write your note here...">
+            </textarea>
+
+
+                    <button
+                            id="saveNoteBtn"
+                            class="primary-btn">
+
+                        ➕ Save Note
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- NOTES LIST -->
+
+            <div class="notes-list-section">
+
+                <div class="notes-list-header">
+
+                    <div>
+
+                        <h2>
+                            Your Notes
+                        </h2>
+
+                        <p>
+                            Search and manage your study notes.
+                        </p>
+
+                    </div>
+
+
+                    <span id="notesCount">
+                            0 Notes
+                    </span>
+
+                </div>
+
+
+                <!-- SEARCH -->
+
+                <div class="notes-search">
+
+                    <input
+                            type="search"
+                            id="noteSearch"
+                            placeholder="🔍 Search notes...">
+
+                </div>
+
+
+                <!-- NOTES -->
+
+                <div
+                        id="notesList"
+                        class="notes-list">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+      STUDY MATERIALS
+ ========================= -->
+
+    <section
+            id="studyMaterials"
+            class="page-section">
+
+        <div class="page-title">
+
+            <h1>📚 Study Materials</h1>
+
+            <p>
+                Upload PDFs or add useful online resources.
+            </p>
+
+        </div>
+
+
+        <div class="study-material-upload-card">
+
+            <div class="study-material-header">
+
+                <div>
+
+                    <h2>
+                        Add Study Material
+                    </h2>
+
+                    <p>
+                        Upload PDFs or add useful online resources.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="study-material-form">
+
+
+                <!-- TITLE -->
+
+                <div class="form-group">
+
+                    <label for="materialTitle">
+                        Material Title
+                    </label>
+
+                    <input
+                            type="text"
+                            id="materialTitle"
+                            placeholder="e.g. DSA Unit 3 Notes">
+
+                </div>
+
+
+                <!-- SUBJECT -->
+
+                <div class="form-group">
+
+                    <label for="pdfSubject">
+                        Subject
+                    </label>
+
+                    <select id="pdfSubject">
+
+                        <option value="">
+                            Select Subject
+                        </option>
+
+                        <option value="general">
+                            General / Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- MATERIAL TYPE -->
+
+                <div class="form-group">
+
+                    <label for="materialType">
+                        Material Type
+                    </label>
+
+                    <select id="materialType">
+
+                        <option value="">
+                            Select Type
+                        </option>
+
+                        <option value="notes">
+                            📘 Lecture Notes
+                        </option>
+
+                        <option value="study">
+                            📄 Study Material
+                        </option>
+
+                        <option value="pyq">
+                            📝 PYQs
+                        </option>
+
+                        <option value="reference">
+                            📚 Reference
+                        </option>
+
+                        <option value="other">
+                            📎 Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- PDF -->
+
+                <div class="form-group">
+
+                    <label for="pdfFile">
+                        PDF File
+                    </label>
+
+                    <input
+                            type="file"
+                            id="pdfFile"
+                            accept="application/pdf">
+
+                </div>
+
+
+                <!-- DRIVE LINK -->
+
+                <div class="form-group">
+
+                    <label for="driveLink">
+                        Google Drive Link
+                    </label>
+
+                    <input
+                            type="url"
+                            id="driveLink"
+                            placeholder="Paste Google Drive link">
+
+                </div>
+
+
+                <button
+                        type="button"
+                        id="uploadPdfBtn"
+                        class="primary-btn">
+
+                    ➕ Add Material
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- MY STUDY LIBRARY -->
+        <div class="study-material-list-section">
+
+            <div class="study-material-list-header">
+                <div>
+                    <h2> My Study Library</h2>
+                    <p>Search, filter, open, and manage your saved resources.</p>
+                </div>
+
+                <span id="pdfCount">0 Materials</span>
+            </div>
+
+            <div class="study-material-toolbar">
+
+                <div class="study-material-search">
+                    <label for="pdfSearch">Search your library</label>
+                    <input
+                            type="search"
+                            id="pdfSearch"
+                            placeholder="🔍 Search by title, subject, or type..."
+                            aria-label="Search study materials">
+                </div>
+
+                <div class="study-material-filter">
+                    <label for="pdfSubjectFilter">Subject</label>
+                    <select id="pdfSubjectFilter">
+                        <option value="all">All Subjects</option>
+                        <option value="general">General / Other</option>
+                    </select>
+                </div>
+
+                <div class="study-material-filter">
+                    <label for="pdfTypeFilter">Material Type</label>
+                    <select id="pdfTypeFilter">
+                        <option value="all">All Types</option>
+                        <option value="notes">Lecture Notes</option>
+                        <option value="study">Study Material</option>
+                        <option value="pyq">PYQs</option>
+                        <option value="reference">Reference</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div
+                    id="pdfList"
+                    class="pdf-list"
+                    aria-live="polite">
+            </div>
+
+        </div>
+
+
+    </section>
+
+    <!-- =========================
+     SETTINGS
+========================= -->
+
+    <section
+            id="settings"
+            class="page-section">
+
+
+        <div class="page-title">
+
+            <h1>
+                ⚙️ Settings
+            </h1>
+
+            <p>
+                Customize your StudentHub experience.
+            </p>
+
+        </div>
+
+
+        <div class="settings-container">
+
+
+            <!-- Appearance -->
+
+            <div class="settings-card">
+
+
+                <div class="settings-card-header">
+
+                    <div class="settings-icon">
+                        🌙
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Appearance
+                        </h2>
+
+                        <p>
+                            Change app theme.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="setting-row">
+
+
+                    <div>
+
+                        <h3>
+                            Dark Mode
+                        </h3>
+
+                        <p>
+                            Enable dark theme across the app.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                            id="themeToggle"
+                            class="setting-btn">
+
+                        🌙 Enable
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- Data -->
+
+            <div class="settings-card">
+
+
+                <div class="settings-card-header">
+
+                    <div class="settings-icon danger">
+
+                        🗑️
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Data Management
+                        </h2>
+
+                        <p>
+                            Manage your saved information.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="setting-row">
+
+
+                    <div>
+
+                        <h3>
+                            Clear All Data
+                        </h3>
+
+
+                        <p>
+                            Remove exams, notes and tasks.
+                        </p>
+
+
+                    </div>
+
+
+                    <button
+                            id="clearDataBtn"
+                            class="danger-btn">
+
+                        Delete Data
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =========================
+         PROFILE
+    ========================= -->
+
+    <section
+            id="profile"
+            class="page-section">
+
+
+        <div class="settings-card">
+
+
+            <div class="settings-card-header">
+
+                <div class="settings-icon">
+                    👤
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Profile
+                    </h2>
+
+                    <p>
+                        Manage your personal details.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="profile-preview">
+
+
+                <div
+                        class="large-profile-avatar"
+                        id="largeProfileAvatar">
+
+                    N
+
+                </div>
+
+
+                <div class="profile-info">
+
+
+                    <h2 id="profileDisplayName">
+                        Nikhil
+                    </h2>
+
+
+                    <div class="profile-tags">
+
+
+                    <span class="profile-tag">
+
+                        🎓
+
+                        <span id="profileCourse">
+                            Course
+                        </span>
+
+                    </span>
+
+
+                        <span class="profile-tag">
+
+                        🏫
+
+                        <span id="profileCollege">
+                            College
+                        </span>
+
+                    </span>
+
+
+                        <span class="profile-tag">
+
+                        📚
+
+                        <span id="profileYear">
+                            Year/Semester
+                        </span>
+
+                    </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+            <div class="profile-inputs profile-edit-grid">
+
+                <div class="profile-field">
+                    <label for="profileName">Full Name</label>
+                    <input
+                            id="profileName"
+                            type="text"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            maxlength="80"
+                            required>
+                </div>
+
+                <div class="profile-field">
+                    <label for="profileCourseInput">Course</label>
+                    <input
+                            id="profileCourseInput"
+                            type="text"
+                            placeholder="e.g. B.Tech ECE"
+                            maxlength="100">
+                </div>
+
+                <div class="profile-field">
+                    <label for="profileCollegeInput">College / University</label>
+                    <input
+                            id="profileCollegeInput"
+                            type="text"
+                            placeholder="Enter your college"
+                            maxlength="150">
+                </div>
+
+                <div class="profile-field">
+                    <label for="profileYearInput">Year / Semester</label>
+                    <input
+                            id="profileYearInput"
+                            type="text"
+                            placeholder="e.g. Semester 7"
+                            maxlength="50">
+                </div>
+
+                <div class="profile-actions">
+
+                    <button
+                            type="button"
+                            id="logoutBtn"
+                            class="danger-btn">
+                        Logout
+                    </button>
+
+                    <button
+                            type="button"
+                            id="saveProfileDetails"
+                            class="setting-btn">
+                        💾 Save Details
+                    </button>
+
+                </div>
+
+                <p
+                        id="profileSaveStatus"
+                        class="profile-save-status"
+                        role="status"
+                        aria-live="polite">
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =========================
+     TO-DO LIST
+========================= -->
+
+    <section id="todo" class="page-section">
+
+        <div class="page-title">
+            <h1>✅ To-Do List</h1>
+            <p>Organize your day, prioritize tasks, and get things done.</p>
+        </div>
+
+        <!-- TASK SUMMARY -->
+        <div class="todo-summary-grid">
+
+            <div class="todo-summary-card">
+                <span>📋</span>
+                <p>Total Tasks</p>
+                <h2 id="todoTotalCount">0</h2>
+            </div>
+
+            <div class="todo-summary-card">
+                <span>⏳</span>
+                <p>Pending</p>
+                <h2 id="todoPendingCount">0</h2>
+            </div>
+
+            <div class="todo-summary-card">
+                <span>🎉</span>
+                <p>Completed</p>
+                <h2 id="todoCompletedCount">0</h2>
+            </div>
+
+        </div>
+
+        <!-- ADD TASK -->
+        <div class="todo-card">
+
+            <div class="todo-card-header">
+                <h2>➕ Add a Task</h2>
+                <p>Write down what you need to do next.</p>
+            </div>
+
+            <form id="todoTaskForm" class="todo-form">
+
+                <div class="todo-field todo-task-field">
+                    <label for="todoTaskInput">Task Name</label>
+                    <input
+                            type="text"
+                            id="todoTaskInput"
+                            placeholder="e.g. Complete assignment"
+                            maxlength="150"
+                            required
+                    >
+                </div>
+
+                <div class="todo-field">
+                    <label for="todoDueDate">Due Date</label>
+                    <input type="date" id="todoDueDate">
+                </div>
+
+                <div class="todo-field">
+                    <label for="todoPriority">Priority</label>
+                    <select id="todoPriority">
+                        <option value="low">Low</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="todo-add-btn">
+                    + Add Task
+                </button>
+
+            </form>
+
+            <p id="todoStatus" class="todo-status" role="status"></p>
+
+        </div>
+
+        <!-- MY TASKS -->
+        <div class="todo-card">
+
+            <div class="todo-list-header">
+                <div>
+                    <h2>My Tasks</h2>
+                    <p>Check tasks off when you finish them.</p>
+                </div>
+
+                <select id="todoFilter" aria-label="Filter tasks">
+                    <option value="all">All Tasks</option>
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+
+            <div id="todoTaskList" class="todo-task-list"></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- JavaScript -->
+
+
+<!-- ========================================
+     DELETE EXAM MODAL
+======================================== -->
+
+<div
+        id="deleteExamModal"
+        class="delete-exam-modal">
+
+    <div class="delete-exam-overlay"></div>
+
+
+    <div class="delete-exam-dialog">
+
+        <div class="delete-exam-icon">
+            🗑️
+        </div>
+
+
+        <h2>
+            Delete this exam?
+        </h2>
+
+
+        <p>
+            This action cannot be undone.
+            Are you sure you want to delete
+            this exam?
+        </p>
+
+
+        <div class="delete-exam-buttons">
+
+            <button
+                    id="cancelDeleteExam"
+                    class="cancel-delete-btn">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                    id="confirmDeleteExam"
+                    class="confirm-delete-btn">
+
+                Delete Exam
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================================
+     DELETE NOTE MODAL
+======================================== -->
+
+<div
+        id="deleteNoteModal"
+        class="delete-note-modal">
+
+
+    <div class="delete-note-overlay"></div>
+
+
+    <div class="delete-note-dialog">
+
+
+        <div class="delete-note-icon">
+            🗑️
+        </div>
+
+
+        <h2>
+            Delete this note?
+        </h2>
+
+
+        <p>
+            This action cannot be undone.
+            Are you sure you want to delete
+            this note?
+        </p>
+
+
+        <div class="delete-note-buttons">
+
+
+            <button
+                    id="cancelDeleteNote"
+                    class="cancel-delete-btn">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                    id="confirmDeleteNote"
+                    class="confirm-delete-btn">
+
+                Delete Note
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<!-- ========================================
+     CLEAR DATA MODAL
+======================================== -->
+
+<div
+        id="clearDataModal"
+        class="clear-data-modal">
+
+
+    <div class="clear-data-overlay"></div>
+
+
+    <div class="clear-data-dialog">
+
+
+        <div class="clear-data-icon">
+
+            ⚠️
+
+        </div>
+
+
+        <h2>
+            Delete all data?
+        </h2>
+
+
+        <p>
+            This will remove exams,
+            notes, assignments and subjects.
+            This action cannot be undone.
+        </p>
+
+
+        <div class="clear-data-buttons">
+
+
+            <button
+                    id="cancelClearData"
+                    class="cancel-delete-btn">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                    id="confirmClearData"
+                    class="confirm-delete-btn">
+
+                Delete Everything
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<!-- JavaScript -->
+
+
+<!-- Supabase Library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Supabase Project Configuration -->
+<script src="supabase-config.js"></script>
+
+<!-- Check Authentication Before Loading Dashboard -->
+<script src="auth-guard.js"></script>
+
+</body>
+
+</html>
